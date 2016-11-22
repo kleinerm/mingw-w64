@@ -127,7 +127,7 @@ extern "C" {
   WINBOOL IsPlatformNT() {
     OSVERSIONINFOA oi = { 0 };
 
-    oi.dwOSVersionInfoSize = sizeof (osvi);
+    oi.dwOSVersionInfoSize = sizeof (oi);
     GetVersionExA ((OSVERSIONINFOA *) &oi);
     return (oi.dwPlatformId == VER_PLATFORM_WIN32_NT);
   }
@@ -241,7 +241,7 @@ extern "C" {
       f = g_pfnGetMonitorInfo (hmon, pmi);
 #ifdef UNICODE
       if (f && !g_fMultimonPlatformNT && pmi->cbSize >= sizeof (MONITORINFOEX))
-	MultiByteToWideChar (CP_ACP, 0, (LPSTR) c.ex->szDevice, -1, c.ex->szDevice, (sizeof (c.ex->szDevice) / 2));
+	MultiByteToWideChar (CP_ACP, 0, (LPSTR) c.ex.szDevice, -1, c.ex.szDevice, (sizeof (c.ex.szDevice) / 2));
 #endif
       return f;
     }
@@ -255,9 +255,9 @@ extern "C" {
       pmi->dwFlags = MONITORINFOF_PRIMARY;
       if (pmi->cbSize >= sizeof (MONITORINFOEX)) {
 #ifdef UNICODE
-	MultiByteToWideChar (CP_ACP, 0, "DISPLAY", -1, c.ex->szDevice, (sizeof (c.ex->szDevice) / 2));
+	MultiByteToWideChar (CP_ACP, 0, "DISPLAY", -1, c.ex.szDevice, (sizeof (c.ex.szDevice) / 2));
 #else
-	lstrcpyn (c.ex->szDevice, "DISPLAY", sizeof (c.ex->szDevice));
+	lstrcpyn (c.ex.szDevice, "DISPLAY", sizeof (c.ex.szDevice));
 #endif
       }
 
